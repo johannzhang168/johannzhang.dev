@@ -1,0 +1,38 @@
+# Node.js dependencies (frontend)
+node_modules/
+
+# Environment variables
+.env
+
+# Build output (frontend and backend)
+dist/
+build/
+tmp/
+
+# Logs
+*.log
+
+# Editor/IDE-specific files
+.vscode/
+.idea/
+*.swp
+
+# OS/System files
+.DS_Store
+Thumbs.db
+
+# Go build artifacts (backend)
+*.exe
+*.out
+*.test
+bin/
+
+# Lock files (Optional: remove if you want reproducible builds)
+# package-lock.json
+# yarn.lock
+
+# Tailwind CSS generated files (if any)
+*.css.map
+
+# Air configuration (backend; optional, ignore if it’s environment-specific)
+.air.toml

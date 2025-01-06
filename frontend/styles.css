@@ -1,0 +1,13 @@
+/* Tailwind CSS Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  @apply font-times;
+}
+   
+.font-times {
+  font-family: "Times New Roman", serif;
+}

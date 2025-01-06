@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vite/client", "node"],
+    "baseUrl": ".", // Required for paths to work
+    "paths": {
+      "@app/*": ["app/*"], // Alias for the app folder
+      "@styles": ["styles.css"], // Alias for the styles.css file
+      "vite": ["node_modules/vite"],
+      "@vitejs/plugin-react": ["node_modules/@vitejs/plugin-react"],
+
+
+    }
+  },
+  "include": ["./app/**/*", "./index.html"],
+  "exclude": ["node_modules", "dist"]
+}
