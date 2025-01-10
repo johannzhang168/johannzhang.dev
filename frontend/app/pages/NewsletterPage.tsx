@@ -37,11 +37,9 @@ const NewsletterPage: React.FC = () => {
           throw new Error("Failed to fetch the newsletter");
         }
         const data = await response.json();
-        console.log(data.newsletter);
         setNewsletter(data.newsletter);
       } catch (err) {
         setError("Failed to load the newsletter");
-        console.log(err);
       } finally {
         setLoading(false);
       }
@@ -118,7 +116,6 @@ const ContentBlockRenderer: React.FC<{ block: CustomElement }> = ({ block }) => 
       ? `${lowerCaseBlock.indentation * 2}em`
       : "0em",
   };
-  console.log(block);
 
   return (
     <div style={blockStyle} className="my-4">

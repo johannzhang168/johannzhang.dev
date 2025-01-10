@@ -28,7 +28,7 @@ const ImageSlideshow: React.FC<{ images: string[]; interval?: number }> = ({
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
-    startTimer(); // Restart the timer
+    startTimer(); 
   };
 
   const handleNext = () => {
@@ -36,12 +36,12 @@ const ImageSlideshow: React.FC<{ images: string[]; interval?: number }> = ({
     setCurrentIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
-    startTimer(); // Restart the timer
+    startTimer(); 
   };
 
   useEffect(() => {
-    startTimer(); // Start the timer when the component mounts
-    return () => stopTimer(); // Cleanup the timer when the component unmounts
+    startTimer(); 
+    return () => stopTimer();
   }, [images.length, interval]);
 
   return (
