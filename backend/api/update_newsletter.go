@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -14,14 +15,15 @@ import (
 )
 
 type UpdateNewsletterRequest struct {
-	Title     *string                `json:"title,omitempty"`
-	ImageURLs *[]string              `json:"image_urls,omitempty"`
-	Content   *[]models.ContentBlock `json:"content,omitempty"`
-	Published *bool                  `json:"published,omitempty"`
+	Title       *string                `json:"title,omitempty"`
+	ImageURLs   *[]string              `json:"image_urls,omitempty"`
+	Content     *[]models.ContentBlock `json:"content,omitempty"`
+	Description *string                `json:"description,omitempty"`
+	Published   *bool                  `json:"published,omitempty"`
 }
 
 func UpdateNewsletter(app *fiber.App, collection *mongo.Collection) {
-	app.Put("/newsletters/:id", func(c *fiber.Ctx) error {
+	app.Patch("/newsletters/edit/:id", func(c *fiber.Ctx) error {
 		user, err := middleware.GetCurrentUser(c)
 
 		if err != nil {
@@ -85,6 +87,9 @@ func UpdateNewsletter(app *fiber.App, collection *mongo.Collection) {
 			if request.Content != nil {
 				update["content"] = *request.Content
 			}
+			if request.Description != nil {
+				update["description"] = *request.Description
+			}
 			if request.Published != nil {
 				update["published"] = *request.Published
 				if *request.Published {
@@ -106,6 +111,7 @@ func UpdateNewsletter(app *fiber.App, collection *mongo.Collection) {
 			}
 
 			if result.MatchedCount == 0 {
+				fmt.Println("here")
 				return fiber.NewError(http.StatusNotFound, "Newsletter not found")
 			}
 

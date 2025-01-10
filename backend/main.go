@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 
@@ -52,13 +53,16 @@ func main() {
 	if port == "" {
 		port = "3000"
 	}
-
+	fmt.Println(port)
 	api.CreateNewsletter(app, collection)
 	api.UpdateNewsletter(app, collection)
 	api.DeleteNewsLetter(app, collection)
 	api.Register(app)
 	api.Login(app)
 	api.GetCurrentUserRoute(app)
+	api.GetNewsletter(app, collection)
+	api.UploadToS3(app)
+	api.GetAllNewsletters(app, collection)
 
 	log.Fatal(app.Listen("0.0.0.0:" + port))
 

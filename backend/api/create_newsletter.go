@@ -11,9 +11,10 @@ import (
 )
 
 type NewsletterRequest struct {
-	Title     string                `json:"title"`
-	ImageURLs []string              `json:"image_urls"`
-	Content   []models.ContentBlock `json:"content"`
+	Title       string                `json:"title"`
+	ImageURLs   []string              `json:"image_urls"`
+	Content     []models.ContentBlock `json:"content"`
+	Description string                `json:"description"`
 }
 
 func CreateNewsletter(app *fiber.App, collection *mongo.Collection) {
@@ -53,10 +54,17 @@ func CreateNewsletter(app *fiber.App, collection *mongo.Collection) {
 			})
 		}
 
+		if request.Description == "" {
+			return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+				"error": "Description is required",
+			})
+		}
+
 		newsletter := &models.Newsletter{
 			Title:         request.Title,
 			ImageURLs:     request.ImageURLs,
 			Content:       request.Content,
+			Description:   request.Description,
 			Published:     false,
 			DatePublished: nil,
 		}

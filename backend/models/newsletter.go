@@ -17,9 +17,10 @@ type TextSpan struct {
 }
 
 type ContentBlock struct {
+	Type        string     `bson:"type,omitempty"`
 	Alignment   string     `bson:"alignment,omitempty"`
 	Indentation int        `bson:"indentation,omitempty"`
-	Spans       []TextSpan `bson:"spans"`
+	Children    []TextSpan `bson:"spans"`
 }
 
 type Newsletter struct {
@@ -27,6 +28,7 @@ type Newsletter struct {
 	Title            string         `bson:"title"`
 	ImageURLs        []string       `bson:"image_urls"`
 	Content          []ContentBlock `bson:"content"`
+	Description      string         `bson:"description"`
 	Published        bool           `bson:"published"`
 	DatePublished    *time.Time     `bson:"date_published,omitempty"`
 }
@@ -36,6 +38,7 @@ type DeletedNewsletter struct {
 	Title            string         `bson:"title"`
 	ImageURLs        []string       `bson:"image_urls"`
 	Content          []ContentBlock `bson:"content"`
+	Description      string         `bson:"description"`
 	Published        bool           `bson:"published"`
 	DatePublished    *time.Time     `bson:"date_published,omitempty"`
 }

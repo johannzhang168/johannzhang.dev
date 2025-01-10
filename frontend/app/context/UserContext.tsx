@@ -7,6 +7,7 @@ interface User {
   firstname: string;
   lastname: string;
   email: string;
+  status: string;
 }
 
 interface UserContextProps {

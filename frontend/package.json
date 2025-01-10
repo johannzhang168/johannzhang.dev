@@ -14,9 +14,18 @@
   "description": "",
   "dependencies": {
     "axios": "^1.7.9",
+    "browser-image-compression": "^2.0.2",
+    "framer-motion": "^11.16.4",
+    "heic2any": "^0.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.1"
+    "react-dropzone": "^14.3.5",
+    "react-hot-toast": "^2.5.1",
+    "react-icons": "^5.4.0",
+    "react-router-dom": "^7.1.1",
+    "slate": "^0.112.0",
+    "slate-react": "^0.112.0",
+    "uuid": "^11.0.4"
   },
   "devDependencies": {
     "@types/node": "^22.10.4",

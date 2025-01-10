@@ -14,21 +14,24 @@ const Navbar: React.FC = () => {
   return (
     <div className="bg-white text-black p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="grid grid-cols-4 gap-4">
+        <div className="flex space-x-6">
           <a href="/" className="text-lg hover:underline">
             Home
           </a>
           <a href="/blog" className="text-lg hover:underline">
             Blog
           </a>
-          {/* <a href="https://www.subletr.com/" target="_blank" rel="noopeber noreferrer" className="text-lg hover:underline">
+          <a href="https://www.subletr.com/" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
             Subletr
-          </a> */}
+          </a> 
+          <a href="https://linkedin.com/in/johann-zhang-269900196/" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
+            Linkedin
+          </a>  
           <a href="https://github.com/johannzhang168" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
             Github
           </a>
-          <a href="https://linkedin.com/in/johann-zhang-269900196/" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
-            Linkedin
+          <a href="https://drive.google.com/file/d/1DG9fu_W27yQNaNaf86wdnfAjxULWYB0K/view" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
+            Resume
           </a>
         </div>
 
@@ -51,10 +54,10 @@ const Navbar: React.FC = () => {
             </div>
           ) : (
             <div>
-              <a href="/login" className="mr-4 hover:underline">
+              <a href="/login" className="mr-4 hover:underline text-lg">
                 Login
               </a>
-              <a href="/register" className="hover:underline">Register</a>
+              
             </div>
           )}
         </div>
