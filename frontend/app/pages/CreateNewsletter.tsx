@@ -6,8 +6,11 @@ import ImageDrop from "@app/components/ImageDrop";
 import heic2any from "heic2any";
 import imageCompression from "browser-image-compression";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "@app/context/UserContext";
+import NotFound from "./Empty";
 
-const TextEditor: React.FC = () => {
+const NewsletterCreationForm: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [imageURLs, setImageURLs] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
@@ -18,7 +21,15 @@ const TextEditor: React.FC = () => {
     },
   ]);
   const [uploading, setUploading] = useState<boolean>(false);
+  const navigate = useNavigate();
   const baseurl = import.meta.env.VITE_API_BASE_URL;
+  const {currentUser} = useUser();
+
+  if(!currentUser || currentUser.status != "ADMIN") {
+    return(
+      <NotFound/>
+    );
+  }
   const onDrop = async (files: File[]) => {
     setUploading(true);
     const validTypes: Set<string> = new Set([
@@ -98,7 +109,6 @@ const TextEditor: React.FC = () => {
       content,
       description
     };
-    console.log(data);
 
     try {
       const imageUrls = []
@@ -107,7 +117,6 @@ const TextEditor: React.FC = () => {
 
         const formData = new FormData();
 
-        console.log(image);
         if (typeof image === "string" && image.startsWith("data:image")){
           const base64Data = image.split(",")[1];
           const contentType = image.match(/data:(.*?);base64/)?.[1] || "image/jpeg";
@@ -118,9 +127,13 @@ const TextEditor: React.FC = () => {
           const uuid = uuidv4();
           formData.append("file", blob, uuid);
         }
-        console.log(formData)
+
+
         const response = await fetch(baseurl + "/upload", {
           method: "POST",
+          headers: {
+            "X-Source-Page": "newsletters"
+          },
           body: formData,
         });
         
@@ -144,6 +157,7 @@ const TextEditor: React.FC = () => {
       if (response.ok) {
 
         Toast.success("Newsletter submitted successfully!");
+        navigate(`/blog`)
       } else {
         console.error("Error:", response.statusText);
       }
@@ -187,7 +201,7 @@ const TextEditor: React.FC = () => {
                   }
                   className="absolute top-0 right-0 bg-red-500 text-white text-xs p-1 rounded-full"
                 >
-                  ×
+                  x
                 </button>
               </div>
             ))}
@@ -207,4 +221,4 @@ const TextEditor: React.FC = () => {
   );
 };
 
-export default TextEditor;
+export default NewsletterCreationForm;

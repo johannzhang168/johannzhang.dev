@@ -12,7 +12,7 @@ interface RichTextEditorProps {
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) => {
   const editor = useMemo(() => withReact(createEditor()), []);
   const [currentFontSize, setCurrentFontSize] = useState(20);
-  const [currentFontFamily, setCurrentFontFamily] = useState("Times New Roman");
+  const [currentFontFamily, setCurrentFontFamily] = useState("Sans-Serif");
   const [currentFontColor, setCurrentFontColor] = useState("#000000");
 
   const renderLeaf = ({ attributes, children, leaf }: any) => {
@@ -70,7 +70,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
       if (match) {
         const [node] = match;
         setCurrentFontSize(node.fontSize || 20);
-        setCurrentFontFamily(node.font || "Times New Roman");
+        setCurrentFontFamily(node.font || "Sans-Serif");
       }
     }
   }, [editor.selection]);
@@ -119,7 +119,7 @@ const Toolbar: React.FC<{
   };
 
   const applyFontFamily = (font: string) => {
-
+    console.log(font)
     Editor.addMark(editor, "font", font);
     
   };
@@ -141,13 +141,13 @@ const Toolbar: React.FC<{
 
   const increaseIndentation = () => {
     const [match] = Editor.nodes(editor, {
-      match: (n) => isCustomElement(n), // Use the type guard here
+      match: (n) => isCustomElement(n),
     });
   
     if (match) {
       const [node, path] = match;
   
-      if (isCustomElement(node)) { // Ensure it's a CustomElement
+      if (isCustomElement(node)) {
         const indentation = node.indentation || 0;
   
         Transforms.setNodes(
@@ -244,6 +244,7 @@ const Toolbar: React.FC<{
           setCurrentFontFamily(font);
         }}
       >
+        <option value="Sans-Serif">Sans-Serif</option>
         <option value="Times New Roman">Times New Roman</option>
         <option value="Arial">Arial</option>
         <option value="Courier New">Courier New</option>

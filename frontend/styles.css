@@ -5,9 +5,14 @@
 
 
 body {
-  @apply font-times;
+  @apply font-sans;
 }
    
 .font-times {
   font-family: "Times New Roman", serif;
+}
+
+
+html {
+  scroll-behavior: smooth;
 }

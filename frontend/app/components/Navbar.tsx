@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="bg-white text-black p-4">
+    <div className="bg-white text-black p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex space-x-6">
           <a href="/" className="text-lg hover:underline">

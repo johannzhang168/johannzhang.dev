@@ -1,21 +1,53 @@
-import React from "react";
+import ProjectCard from "@app/components/ProjectCard";
+import { useUser } from "@app/context/UserContext";
+import React, { useState, useEffect } from "react";
+import Masonry from "react-masonry-css";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
+  const [projects, setProjects] = useState<any[]>([]); 
+  const baseurl = import.meta.env.VITE_API_BASE_URL;
+  const {currentUser} = useUser();
+  const navigate = useNavigate();
+  const fetchProjects = async () => {
+    try{
+      const response = await fetch(`${baseurl}/projects/get`)
+      if (!response.ok) {
+        throw new Error("Failed to fetch projects");
+      }
+      const data = await response.json();
+      console.log(data.projects)
+      setProjects(data.projects)
+
+    }catch(error){
+      console.error("Error fetching projects:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const breakpointColumns = {
+    default: 2,
+    768: 1,
+  };
+
   return (
     <div className="min-h-[15vh] flex flex-col gap-5 items-left">
-      <p className="text-3xl font-bold text-orange-500">Bio</p>
-      <p className="text-lg text-black">
-        Hello World! I'm Johann Zhang, an aspiring software engineer studying computer science at Tufts University.
+      <p className="text-3xl font-semibold">Bio</p>
+      <p className="text-lg ">
+        Hello World! I'm Johann, an aspiring software engineer studying computer science at Tufts University.
         Currently, I find enjoyment in building projects revolving around machine learning, high performance computing, and web development. 
-        For recruiters, please view my <a href="https://drive.google.com/file/d/1DG9fu_W27yQNaNaf86wdnfAjxULWYB0K/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="underline font-bold">resume</a> here. 
+        For those interested, here is my <a href="https://drive.google.com/file/d/1DG9fu_W27yQNaNaf86wdnfAjxULWYB0K/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="underline font-bold">resume</a>, and some <a href="#projects-section" className="underline font-bold">projects</a> I've worked on. 
       </p>
-      <p className="text-lg text-black">Outside of school, I enjoy going to the gym, swimming, and occasionally full boxing some kids on Fortnite. I'm also trying to get into writing, which is one of the main motives behind this site. Check out some of my <a href="/blog" className="underline font-bold">blogs</a>, if you want. Hopefully they provide some nice insights to things that might interest you.</p>
+      <p className="text-lg">Outside of school, I enjoy going to the gym, swimming, and occasionally full boxing some kids on Fortnite. I'm also trying to get into writing, which is one of the main motives behind this site. Check out some of my <a href="/blog" className="underline font-bold">blogs</a>, if you want. Hopefully they provide some nice insights to things that might interest you.</p>
 
-      <p className="text-3xl font-bold text-orange-500">Work Experience {" "} </p>
-      <ul className="list-disc text-lg ml-[1vw] text-black space-y-[2vh]">
+      <p className="text-3xl font-semibold">Work Experience {" "} </p>
+      <ul className="list-disc text-lg ml-[1vw] space-y-[2vh]">
         <li>
           <p>
-            <a href="https://www.datadoghq.com/" target="_blank" rel="noopener noreferrer" className="underline">
+            <a href="https://www.datadoghq.com/" target="_blank" rel="noopener noreferrer" className="underline hover:font-bold">
               Datadog
             </a>{" "}
             (starting in June 2025): Software Engineer Intern
@@ -23,7 +55,7 @@ const Home: React.FC = () => {
         </li>
         <li className="space-y-[1vh]">
           <p>
-            <a href="https://www.subletr.com/" target="_blank" rel="noopener noreferrer" className="underline">
+            <a href="https://www.subletr.com/" target="_blank" rel="noopener noreferrer" className="underline hover:font-bold">
               Subletr 
             </a>
             {" "} (June 2024 - Present) : Full Stack Developer 
@@ -43,7 +75,7 @@ const Home: React.FC = () => {
         </li>
         <li className="space-y-[1vh]">
           <p >
-          <span className="underline">
+          <span className="underline cursor-pointer hover:font-bold" >
             University of Missouri-Columbia - NSF REU 
           </span> {" "}
           (June 2024 - July 2024): Research Intern
@@ -56,8 +88,31 @@ const Home: React.FC = () => {
           </ul>
         </li>
       </ul>
-
-
+      <div className="flex items-center justify-between mb-4">
+        <p
+          id="projects-section"
+          className="text-3xl font-semibold"
+        >
+          Projects I've Worked On
+        </p>
+        {currentUser !== null && currentUser.status === "ADMIN" && (
+          <button
+            onClick={() => navigate("/create/project")}
+            className="bg-orange-500 w-7 h-7 text-white px-3 py-2 rounded-md hover:bg-orange-600 flex items-center justify-center"
+          >
+            +
+          </button>
+        )}
+      </div>
+      <Masonry
+        breakpointCols={breakpointColumns}
+        className="flex gap-4"
+        columnClassName="space-y-4"
+      >
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </Masonry> 
     </div>
   );
 };

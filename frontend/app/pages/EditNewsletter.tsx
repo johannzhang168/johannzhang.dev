@@ -8,6 +8,8 @@ import ImageDrop from "@app/components/ImageDrop";
 import heic2any from "heic2any";
 import imageCompression from "browser-image-compression";
 import { v4 as uuidv4 } from "uuid";
+import NotFound from "./Empty";
+import { useUser } from "@app/context/UserContext";
 
 
 
@@ -24,6 +26,13 @@ const EditNewsletter: React.FC = () => {
   const [originalNewsletterPublished, setOriginalNewsletterPublished] = useState<boolean>(false);
 
   const baseurl = import.meta.env.VITE_API_BASE_URL;
+  const {currentUser} = useUser();
+
+  if(!currentUser || currentUser.status != "ADMIN") {
+    return(
+      <NotFound/>
+    );
+  }
 
   useEffect(() => {
     const fetchNewsletter = async () => {
@@ -158,7 +167,6 @@ const EditNewsletter: React.FC = () => {
 
       if (response.ok) {
         Toast.success("Newsletter deleted successfully!");
-        // Redirect the user to the home or another relevant page
         window.location.href = "/";
       } else {
         console.error("Error deleting newsletter:", response.statusText);
@@ -171,7 +179,6 @@ const EditNewsletter: React.FC = () => {
   };
 
   const handleContentChange = (updatedContent: CustomDescendant[]) => {
-    console.log(updatedContent);
     setContent(updatedContent);
   };
 
@@ -191,7 +198,6 @@ const EditNewsletter: React.FC = () => {
     };
 
     try {
-      console.log(data);
       const imageUrls = []
       if(data.published === originalNewsletterPublished){
         delete data.published;
@@ -200,7 +206,6 @@ const EditNewsletter: React.FC = () => {
 
         const formData = new FormData();
 
-        console.log(image);
         if (typeof image === "string" && image.startsWith("data:image")){
           const base64Data = image.split(",")[1];
           const contentType = image.match(/data:(.*?);base64/)?.[1] || "image/jpeg";
@@ -213,6 +218,9 @@ const EditNewsletter: React.FC = () => {
           const response = await fetch(baseurl + "/upload", {
             method: "POST",
             body: formData,
+            headers: {
+              "X-Source-Page": "newsletters"
+            },
           });
           
           if (!response.ok){
@@ -234,6 +242,7 @@ const EditNewsletter: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "X-Source-Page": "newsletters",
         },
         body: JSON.stringify(data),
       });

@@ -15,6 +15,12 @@ func GetCurrentUserRoute(app *fiber.App) {
 			})
 		}
 
+		if user == nil {
+			return c.Status(fiber.StatusOK).JSON(fiber.Map{
+				"user": nil,
+			})
+		}
+
 		userResponse := &models.SafeUser{
 			ID:        user.ID.Hex(),
 			FirstName: user.FirstName,

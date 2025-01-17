@@ -62,9 +62,8 @@ const NewsletterPage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-3xl font-bold">{newsletter.Title}</h1>
+        <h1 className="text-3xl text-orange-500 font-semibold">{newsletter.Title}</h1>
         {currentUser && currentUser.status === "ADMIN" && (
           <button
             onClick={() => navigate(`/blog/edit/${newsletter.id}`)}
@@ -82,11 +81,12 @@ const NewsletterPage: React.FC = () => {
           </>
         )}
       </p>
-      <div className="my-4">
-        <ImageSlideshow images={newsletter.ImageURLs} />
-      </div>
-      
-      <div>
+      {newsletter.ImageURLs && newsletter.ImageURLs.length > 0 && (
+        <div className="my-4">
+          <ImageSlideshow images={newsletter.ImageURLs} />
+        </div>
+      )}
+      <div className="mt-10">
         {newsletter.Content.map((block, index) => (
           <ContentBlockRenderer key={index} block={block} />
         ))}
@@ -130,7 +130,7 @@ const ContentBlockRenderer: React.FC<{ block: CustomElement }> = ({ block }) => 
         };
 
         return (
-          <span key={index} style={spanStyle}>
+          <span key={index} style={spanStyle} className="break-words">
             {span.text}
           </span>
         );

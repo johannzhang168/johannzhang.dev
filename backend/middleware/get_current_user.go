@@ -17,6 +17,7 @@ func GetCurrentUser(c *fiber.Ctx) (*models.User, error) {
 	if authHeader == "" {
 		return nil, nil
 	}
+
 	tokenParts := strings.Split(authHeader, " ")
 	if len(tokenParts) != 2 || tokenParts[0] != "Bearer" {
 		return nil, nil
@@ -50,5 +51,6 @@ func GetCurrentUser(c *fiber.Ctx) (*models.User, error) {
 	if err != nil {
 		return nil, nil
 	}
+
 	return &user, nil
 }

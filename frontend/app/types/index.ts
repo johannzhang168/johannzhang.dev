@@ -18,7 +18,6 @@ export type CustomElement = {
   indentation?: number;
 };
 
-// Extend Slate's Descendant type
 export type CustomDescendant = CustomElement | CustomText;
 
 declare module "slate" {

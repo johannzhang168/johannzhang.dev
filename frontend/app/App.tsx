@@ -4,13 +4,15 @@ import { AnimatePresence, motion } from "framer-motion";
 import Layout from "./layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import CreateNewsletter from "./pages/CreateNewsletter";
+import NewsletterCreationForm from "./pages/CreateNewsletter";
 import { UserProvider } from "./context/UserContext";
 import NotFound from "./pages/Empty";
 import { Toaster } from "react-hot-toast";
 import NewsletterPage from "./pages/NewsletterPage";
 import EditNewsletter from "./pages/EditNewsletter";
+import ProjectCreationForm from "./pages/CreateProject";
 import Blog from "./pages/Blog";
+import EditProjectForm from "./pages/EditProject";
 
 const pageVariants = {
   initial: { opacity: 0, y: 100 },
@@ -57,7 +59,7 @@ const AnimatedRoutes: React.FC = () => {
           }
         />
         <Route
-          path="/create"
+          path="/create/blog"
           element={
             <motion.div
               variants={pageVariants}
@@ -66,7 +68,7 @@ const AnimatedRoutes: React.FC = () => {
               exit="exit"
               transition={pageTransition}
             >
-              <CreateNewsletter />
+              <NewsletterCreationForm />
             </motion.div>
           }
         />
@@ -113,6 +115,34 @@ const AnimatedRoutes: React.FC = () => {
           }
         />
         <Route
+          path="/create/project"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={pageTransition}
+            >
+              <ProjectCreationForm />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/projects/edit/:projectId"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={pageTransition}
+            >
+              <EditProjectForm />
+            </motion.div>
+          }
+        />
+        <Route
           path="*"
           element={
             <motion.div
@@ -126,6 +156,7 @@ const AnimatedRoutes: React.FC = () => {
             </motion.div>
           }
         />
+        
       </Routes>
     </AnimatePresence>
   );

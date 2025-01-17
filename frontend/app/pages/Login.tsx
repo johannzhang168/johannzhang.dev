@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/context/UserContext";
+import Toast from "react-hot-toast"
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -21,8 +22,7 @@ const Login: React.FC = () => {
 
       navigate("/");
     } catch (err: any) {
-        console.log(err)
-        setError(err.response?.data?.error || "Login failed. Please try again.");
+        Toast.error(err.response?.data?.error || "Login failed. Please try again.");
     }
   };
 

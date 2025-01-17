@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -22,19 +21,21 @@ func GetAllNewsletters(app *fiber.App, collection *mongo.Collection) {
 			isPublished := published == "true"
 			filter = bson.M{"published": isPublished}
 		} else {
-
 			filter = bson.M{"published": true}
 		}
 
 		findOptions := options.Find()
-		findOptions.SetSort(bson.D{{Key: "date", Value: -1}})
+		if filter["published"] == true {
+			findOptions.SetSort(bson.D{{Key: "date_published", Value: -1}})
+		} else {
+			findOptions.SetSort(bson.D{{Key: "created_at", Value: -1}})
+		}
 
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 
 		cursor, err := collection.Find(ctx, filter, findOptions)
 		if err != nil {
-			fmt.Println(err)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error": "Failed to fetch newsletters",
 			})

@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 
@@ -15,7 +14,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var collection *mongo.Collection
+var newsletterCollection *mongo.Collection
+var projectCollection *mongo.Collection
 
 func main() {
 	err := godotenv.Load(".env")
@@ -40,29 +40,34 @@ func main() {
 		log.Fatal(err)
 	}
 
-	collection = client.Database("dev").Collection("newsletters")
+	newsletterCollection = client.Database("dev").Collection("newsletters")
+	projectCollection = client.Database("dev").Collection("projects")
 
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "http://localhost:5173",
-		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
+		AllowHeaders: "Origin, Content-Type, Accept, Authorization, X-Source-Page",
 	}))
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "3000"
 	}
-	fmt.Println(port)
-	api.CreateNewsletter(app, collection)
-	api.UpdateNewsletter(app, collection)
-	api.DeleteNewsLetter(app, collection)
+	api.CreateNewsletter(app, newsletterCollection)
+	api.UpdateNewsletter(app, newsletterCollection)
+	api.DeleteNewsLetter(app, newsletterCollection)
 	api.Register(app)
 	api.Login(app)
 	api.GetCurrentUserRoute(app)
-	api.GetNewsletter(app, collection)
+	api.GetNewsletter(app, newsletterCollection)
 	api.UploadToS3(app)
-	api.GetAllNewsletters(app, collection)
+	api.GetAllNewsletters(app, newsletterCollection)
+	api.CreateProject(app, projectCollection)
+	api.GetAllProjects(app, projectCollection)
+	api.GetProject(app, projectCollection)
+	api.UpdateProject(app, projectCollection)
+	api.DeleteProject(app, projectCollection)
 
 	log.Fatal(app.Listen("0.0.0.0:" + port))
 

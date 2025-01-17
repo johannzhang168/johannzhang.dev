@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useUser } from "../context/UserContext";
 import BlogCard from "@app/components/BlogCard";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Blog: React.FC = () => {
   const { currentUser } = useUser();
@@ -13,6 +14,7 @@ const Blog: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const baseurl = import.meta.env.VITE_API_BASE_URL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentUser && currentUser.status === "ADMIN") {
@@ -40,8 +42,7 @@ const Blog: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    
+  useEffect(() => { 
     if (isAdmin) {
       fetchBlogs(activeTab === "published");
     } else {
@@ -53,11 +54,18 @@ const Blog: React.FC = () => {
 
   return (
   <div className="container mx-auto p-4">
-    {/* Tabs for Admin */}
+
+    {currentUser && currentUser.status === "ADMIN" && (
+      <div className="flex justify-end">
+        <button onClick={() => navigate(`/create/blog`)}  className="hover:bg-orange-600  bg-orange-500 rounded-md p-1 text-white">
+          Create Blog
+        </button>
+      </div>
+    )}
     {isAdmin && (
     <div className="flex mb-4">
       <button
-        className={`px-4 py-2 ${
+        className={`py-2 ${
                 activeTab === "published" ? "font-bold underline" : "font-normal"
         } hover:underline`}
         onClick={() => setActiveTab("published")}
@@ -75,15 +83,17 @@ const Blog: React.FC = () => {
     </div>
     )}
 
-    {/* Blog List with Animation */}
+    <p className="text-3xl font-semibold">Blog</p>
+    <p className="text-lg mt-5">Trying out this whole writing thing. I hope to become better at this as time goes on, so please send any feedback you have on <a href="https://www.linkedin.com/in/johann-zhang-269900196/" target="_blank" rel="noopener noreferrer" className="underline font-bold">linkedin</a>!</p>
+
     <AnimatePresence mode="wait">
     <motion.div
-      key={activeTab} // Triggers re-animation when the tab changes
-      initial={{ opacity: 0 }} // Start with 0 opacity
-      animate={{ opacity: 1 }} // Fade into full opacity
-      exit={{ opacity: 0 }} // Fade out
-      transition={{ duration: 0.5 }} // Animation duration
-      className="flex flex-col gap-4"
+      key={activeTab}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col gap-4 mt-4"
     >
     {blogs.map((blog) => (
       <BlogCard key={blog.id} blog={blog} isPublished={blog.Published} />

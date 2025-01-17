@@ -45,7 +45,19 @@ func UploadToS3(app *fiber.App) {
 		awsSecretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 		awsBucket := os.Getenv("S3_BUCKET_NAME")
 
-		objectKey := "newsletterImages/" + fileHeader.Filename
+		sourcePage := c.Get("X-Source-Page")
+
+		var objectKey string
+
+		if sourcePage == "newsletters" {
+			objectKey = "newsletterImages/" + fileHeader.Filename
+		} else if sourcePage == "projects" {
+			objectKey = "projectImages/" + fileHeader.Filename
+		} else {
+			return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+				"error": "Improper source page",
+			})
+		}
 
 		cfg, err := config.LoadDefaultConfig(
 			context.TODO(),

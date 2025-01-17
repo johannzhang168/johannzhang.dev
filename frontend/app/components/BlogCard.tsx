@@ -15,19 +15,16 @@ interface BlogCardProps {
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog, isPublished }) => {
-  console.log(blog);
   return (
     <div>
       <Link
         to={isPublished ? `/blog/${blog.id}` : `/blog/edit/${blog.id}`}
-        className="block"
+        className="flex"
       >
-        <div className="border p-4 rounded-lg shadow w-full grid grid-cols-3 gap-4 hover:bg-gray-100 transition">
+        <div className="bg-white p-4 rounded-lg w-full shadow-md grid grid-cols-3 gap-4 hover:bg-gray-200 transition">
           <div className="col-span-2 flex flex-col space-y-2">
 
-            <h2 className="text-lg font-bold underline">{blog.Title}</h2>
-    
-
+            <h2 className="text-lg font-semibold">{blog.Title}</h2>
             {blog.Description && (
               <p className="text-sm text-gray-700 break-words max-w-3/4">
                 {blog.Description}

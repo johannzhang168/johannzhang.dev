@@ -3,7 +3,6 @@ package api
 import (
 	"context"
 	"net/http"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/johannzhang168/personal-website/backend/middleware"
@@ -13,16 +12,16 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type UpdateNewsletterRequest struct {
-	Title       *string                `json:"title,omitempty"`
-	ImageURLs   *[]string              `json:"image_urls,omitempty"`
-	Content     *[]models.ContentBlock `json:"content,omitempty"`
-	Description *string                `json:"description,omitempty"`
-	Published   *bool                  `json:"published,omitempty"`
+type UpdateProjectRequest struct {
+	Name        *string   `json:"string,omitempty"`
+	Description *string   `json:"description,omitempty"`
+	Link        *string   `json:"link,omitempty"`
+	Image       *string   `json:"image,omitempty"`
+	Tags        *[]string `json:"tags,omitempty"`
 }
 
-func UpdateNewsletter(app *fiber.App, collection *mongo.Collection) {
-	app.Patch("/newsletters/edit/:id", func(c *fiber.Ctx) error {
+func UpdateProject(app *fiber.App, collection *mongo.Collection) {
+	app.Patch("/projects/edit/:id", func(c *fiber.Ctx) error {
 		user, err := middleware.GetCurrentUser(c)
 
 		if err != nil {
@@ -42,16 +41,19 @@ func UpdateNewsletter(app *fiber.App, collection *mongo.Collection) {
 				"error": "User does not have access to this route",
 			})
 		}
+
 		id := c.Params("id")
 
 		objectID, err := primitive.ObjectIDFromHex(id)
+
 		if err != nil {
 			return c.Status(http.StatusBadRequest).JSON(fiber.Map{
 				"error": "Invalid ID format",
 			})
 		}
 
-		var request UpdateNewsletterRequest
+		var request UpdateProjectRequest
+
 		if err := c.BodyParser(&request); err != nil {
 			return c.Status(http.StatusBadRequest).JSON(fiber.Map{
 				"message": "Invalid request body",
@@ -69,34 +71,33 @@ func UpdateNewsletter(app *fiber.App, collection *mongo.Collection) {
 
 		defer session.EndSession(context.Background())
 
-		var updatedNewsletter models.Newsletter
+		var updatedProject models.Project
 
 		err = mongo.WithSession(context.Background(), session, func(sc mongo.SessionContext) error {
 			if err := session.StartTransaction(); err != nil {
 				return err
 			}
+
 			update := bson.M{}
 
-			if request.Title != nil {
-				update["title"] = *request.Title
+			if request.Name != nil {
+				update["name"] = *request.Name
 			}
-			if request.ImageURLs != nil {
-				update["image_urls"] = *request.ImageURLs
-			}
-			if request.Content != nil {
-				update["content"] = *request.Content
-			}
+
 			if request.Description != nil {
 				update["description"] = *request.Description
 			}
-			if request.Published != nil {
-				update["published"] = *request.Published
-				if *request.Published {
-					now := primitive.NewDateTimeFromTime(time.Now())
-					update["date_published"] = now
-				} else {
-					update["date_published"] = nil
-				}
+
+			if request.Image != nil {
+				update["image"] = *request.Image
+			}
+
+			if request.Link != nil {
+				update["link"] = *request.Link
+			}
+
+			if request.Tags != nil {
+				update["tags"] = *request.Tags
 			}
 
 			result, err := collection.UpdateOne(
@@ -110,10 +111,10 @@ func UpdateNewsletter(app *fiber.App, collection *mongo.Collection) {
 			}
 
 			if result.MatchedCount == 0 {
-				return fiber.NewError(http.StatusNotFound, "Newsletter not found")
+				return fiber.NewError(http.StatusNotFound, "Project not found")
 			}
 
-			err = collection.FindOne(context.Background(), bson.M{"_id": objectID}).Decode(&updatedNewsletter)
+			err = collection.FindOne(context.Background(), bson.M{"_id": objectID}).Decode(&updatedProject)
 			if err != nil {
 				return err
 			}
@@ -132,8 +133,9 @@ func UpdateNewsletter(app *fiber.App, collection *mongo.Collection) {
 		}
 
 		return c.Status(http.StatusOK).JSON(fiber.Map{
-			"message":    "Newsletter updated successfully",
-			"newsletter": updatedNewsletter,
+			"message": "Project updated successfully",
+			"Project": updatedProject,
 		})
+
 	})
 }
