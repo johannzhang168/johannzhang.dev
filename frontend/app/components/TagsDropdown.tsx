@@ -18,6 +18,7 @@ const TagsDropdown: React.FC<TagsDropdownProps> = ({ selectedTags, onChange }) =
     "Prisma",
     "Python",
     "Scikit-learn",
+    "BERT",
     "Tensorflow",
     "OpenCV",
     "ROS",
