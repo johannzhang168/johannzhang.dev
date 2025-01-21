@@ -22,6 +22,7 @@ module.exports = {
       },
       fontFamily: {
         times: ['"Times New Roman"', "serif"],
+        mono: ['"Roboto Mono"', 'monospace'],
       },
 
     },

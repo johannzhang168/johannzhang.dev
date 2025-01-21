@@ -5,7 +5,8 @@
 
 
 body {
-  @apply font-sans;
+  @apply font-mono;
+  font-family: 'Roboto Mono', monospace;
 }
    
 .font-times {

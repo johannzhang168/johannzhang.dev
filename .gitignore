@@ -36,3 +36,11 @@ bin/
 
 # Air configuration (backend; optional, ignore if it’s environment-specific)
 .air.toml
+
+Dockerfile
+
+fullchain.pem
+privkey.pem
+
+.gitignore
+

@@ -12,7 +12,7 @@ interface RichTextEditorProps {
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) => {
   const editor = useMemo(() => withReact(createEditor()), []);
   const [currentFontSize, setCurrentFontSize] = useState(20);
-  const [currentFontFamily, setCurrentFontFamily] = useState("Sans-Serif");
+  const [currentFontFamily, setCurrentFontFamily] = useState("font-mono");
   const [currentFontColor, setCurrentFontColor] = useState("#000000");
 
   const renderLeaf = ({ attributes, children, leaf }: any) => {
@@ -34,6 +34,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
     }
     if (leaf.font) {
       style.fontFamily = leaf.font;
+    }
+    if (leaf.font === "font-mono") {
+      style.fontFamily = 'monospace';
     }
     if (leaf.fontColor) {
       style.color = leaf.fontColor;
@@ -70,7 +73,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
       if (match) {
         const [node] = match;
         setCurrentFontSize(node.fontSize || 20);
-        setCurrentFontFamily(node.font || "Sans-Serif");
+        setCurrentFontFamily(node.font || "font-mono");
       }
     }
   }, [editor.selection]);
@@ -119,7 +122,9 @@ const Toolbar: React.FC<{
   };
 
   const applyFontFamily = (font: string) => {
-    console.log(font)
+    if(font === "font-mono") {
+      Editor.removeMark(editor, "font");
+    }
     Editor.addMark(editor, "font", font);
     
   };
@@ -244,6 +249,7 @@ const Toolbar: React.FC<{
           setCurrentFontFamily(font);
         }}
       >
+        <option value="font-mono">Mono</option>
         <option value="Sans-Serif">Sans-Serif</option>
         <option value="Times New Roman">Times New Roman</option>
         <option value="Arial">Arial</option>

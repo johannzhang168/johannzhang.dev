@@ -45,8 +45,10 @@ func main() {
 
 	app := fiber.New()
 
+	ORIGINS := os.Getenv("ORIGINS")
+
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "http://localhost:5173",
+		AllowOrigins: ORIGINS,
 		AllowHeaders: "Origin, Content-Type, Accept, Authorization, X-Source-Page",
 	}))
 
@@ -69,6 +71,9 @@ func main() {
 	api.UpdateProject(app, projectCollection)
 	api.DeleteProject(app, projectCollection)
 
-	log.Fatal(app.Listen("0.0.0.0:" + port))
+	certFile := os.Getenv("SSL_CERT_FILE")
+	keyFile := os.Getenv("SSL_KEY_FILE")
+
+	log.Fatal(app.ListenTLS(":"+port, certFile, keyFile))
 
 }

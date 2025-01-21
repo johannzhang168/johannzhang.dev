@@ -50,7 +50,6 @@ const Blog: React.FC = () => {
     }
   }, [isAdmin, activeTab]);
 
-  // if (loading) return <p>Loading blogs...</p>;
 
   return (
   <div className="container mx-auto p-4">

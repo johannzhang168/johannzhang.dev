@@ -63,7 +63,7 @@ const NewsletterPage: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-3xl text-orange-500 font-semibold">{newsletter.Title}</h1>
+        <h1 className="text-3xl font-semibold">{newsletter.Title}</h1>
         {currentUser && currentUser.status === "ADMIN" && (
           <button
             onClick={() => navigate(`/blog/edit/${newsletter.id}`)}
