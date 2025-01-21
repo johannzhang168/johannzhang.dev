@@ -45,10 +45,10 @@ func main() {
 
 	app := fiber.New()
 
-	ORIGINS := os.Getenv("ORIGINS")
+	// ORIGINS := os.Getenv("ORIGINS")
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: ORIGINS,
+		AllowOrigins: "https://johannzhang.dev",
 		AllowHeaders: "Origin, Content-Type, Accept, Authorization, X-Source-Page",
 	}))
 

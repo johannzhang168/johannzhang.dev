@@ -64,6 +64,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               else if (tag === "AMAZON_S3") bgColor = "bg-orange-500 text-white";
               else if (tag === "PYTHON") bgColor = "bg-yellow-400 text-white";
               else if (tag === "SCIKIT-LEARN") bgColor = "bg-yellow-500 text-white";
+              else if (tag === "BERT") bgColor = "bg-yellow-600"
               else if (tag === "TENSORFLOW") bgColor = "bg-orange-300 text-white";
               else if (tag === "OPENCV") bgColor = "bg-blue-500 text-white";
               else if (tag === "ROS") bgColor = "bg-blue-800 text-white";
