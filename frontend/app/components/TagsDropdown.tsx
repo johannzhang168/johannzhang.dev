@@ -14,6 +14,8 @@ const TagsDropdown: React.FC<TagsDropdownProps> = ({ selectedTags, onChange }) =
     "React",
     "NextJS",
     "Amazon S3",
+    "AWS ECS",
+    "Docker",
     "MongoDB",
     "Prisma",
     "Python",
