@@ -13,32 +13,54 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="bg-white text-black p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex space-x-6">
-          <a href="/" className="text-lg hover:underline">
+      <div className="container mx-auto flex justify-between items-center overflow-x-auto whitespace-nowrap">
+        <div className="flex items-center space-x-4 sm:space-x-6 text-xs sm:text-sm md:text-base lg:text-lg">
+          <a href="/" className="hover:underline flex-shrink-0">
             Home
           </a>
-          <a href="/blog" className="text-lg hover:underline">
+          <a href="/blog" className="hover:underline flex-shrink-0">
             Blog
           </a>
-          <a href="https://www.subletr.com/" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
+          <a
+            href="https://www.subletr.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline flex-shrink-0"
+          >
             Subletr
-          </a> 
-          <a href="https://linkedin.com/in/johann-zhang-269900196/" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
+          </a>
+          <a
+            href="https://linkedin.com/in/johann-zhang-269900196/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline flex-shrink-0"
+          >
             Linkedin
-          </a>  
-          <a href="https://github.com/johannzhang168" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
+          </a>
+          <a
+            href="https://github.com/johannzhang168"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline flex-shrink-0"
+          >
             Github
           </a>
-          <a href="https://drive.google.com/file/d/1DG9fu_W27yQNaNaf86wdnfAjxULWYB0K/view" target="_blank" rel="noopener noreferrer" className="text-lg hover:underline">
+          <a
+            href="https://drive.google.com/file/d/1DG9fu_W27yQNaNaf86wdnfAjxULWYB0K/view"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline flex-shrink-0"
+          >
             Resume
           </a>
         </div>
 
-        <div>
+        <div className="flex items-center space-x-4">
           {currentUser ? (
             <div className="flex items-center space-x-4">
-              <span>Welcome, {currentUser.firstname}!</span>
+              <span className="text-xs sm:text-sm md:text-base lg:text-lg">
+                Welcome, {currentUser.firstname}!
+              </span>
               <button
                 className={`bg-red-500 px-3 py-1 rounded text-white hover:bg-red-600 ${
                   loading && "opacity-50 cursor-not-allowed"
@@ -54,10 +76,9 @@ const Navbar: React.FC = () => {
             </div>
           ) : (
             <div>
-              <a href="/login" className="mr-4 hover:underline text-lg">
+              <a href="/login" className="hover:underline text-xs sm:text-sm md:text-base lg:text-lg">
                 Login
               </a>
-              
             </div>
           )}
         </div>
