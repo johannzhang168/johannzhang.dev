@@ -89,7 +89,11 @@ const EditNewsletter: React.FC = () => {
       "image/png",
       "image/webp",
     ]);
-  
+    if (imageURLs.length > 10) {
+      Toast.error("Too Many Images!")
+      setUploading(false);
+      return;
+    }
     const processFile = async (fileOrBlob: Blob) => {
       const file = new File([fileOrBlob], "image.jpg", {
         type: fileOrBlob.type,
