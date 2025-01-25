@@ -186,11 +186,11 @@ const ProjectCreationForm: React.FC = () => {
       </div>
 
       <textarea
-        placeholder="Description (max 300 characters)"
+        placeholder="Description (max 500 characters)"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         className="w-full p-2 mb-4 border rounded"
-        maxLength={300}
+        maxLength={500}
         rows={3}
       />
 
