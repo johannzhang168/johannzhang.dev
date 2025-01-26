@@ -2,7 +2,7 @@ import React from "react";
 
 const NameTab: React.FC = () => {
   return (
-    <div className="bg-white rounded-lg shadow-md px-[1vw] py-[10px] flex w-[50vw] h-[75px] sm:h-[100px] md:h-[100px] lg:h-[100px] overflow-hidden">
+    <div className="bg-white rounded-lg shadow-md px-[1vw] py-[10px] flex w-[50vw] h-[75px] max-w-[750px] sm:h-[100px] md:h-[100px] lg:h-[100px] overflow-hidden">
       <div className="text-left">
         <a
           href="/"
