@@ -52,7 +52,7 @@ const Blog: React.FC = () => {
 
 
   return (
-  <div className="container mx-auto p-4">
+  <div className="container mx-auto">
 
     {currentUser && currentUser.status === "ADMIN" && (
       <div className="flex justify-end">
@@ -82,8 +82,8 @@ const Blog: React.FC = () => {
     </div>
     )}
 
-    <p className="text-3xl font-semibold">Blog</p>
-    <p className="text-lg mt-5">Trying out this whole writing thing. I hope to become better at this as time goes on, so please send any feedback you have on <a href="https://www.linkedin.com/in/johann-zhang-269900196/" target="_blank" rel="noopener noreferrer" className="underline font-bold">linkedin</a>!</p>
+    <p className="md:lg:text-3xl text-2xl font-semibold">Blog</p>
+    <p className="md:lg:text-lg sm:text-md mt-5">Trying out this whole writing thing. I hope to become better at this as time goes on, so please send any feedback you have on <a href="https://www.linkedin.com/in/johann-zhang-269900196/" target="_blank" rel="noopener noreferrer" className="underline font-bold">linkedin</a>!</p>
 
     <AnimatePresence mode="wait">
     <motion.div

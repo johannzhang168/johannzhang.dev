@@ -35,7 +35,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-[15vh] flex flex-col gap-5 items-left">
-      <p className="sm: text-2xl md:lg:text-3xl font-semibold">Bio</p>
+      <p className="text-2xl md:lg:text-3xl font-semibold">Bio</p>
       <p className="md:lg:text-lg sm:text-md">
         Hello World! I'm Johann, an aspiring software engineer studying computer science at Tufts University.
         Currently, I find enjoyment in building projects revolving around machine learning, high performance computing, and web development. 
