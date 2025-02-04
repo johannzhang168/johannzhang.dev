@@ -35,16 +35,16 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-[15vh] flex flex-col gap-5 items-left">
-      <p className="text-3xl font-semibold">Bio</p>
-      <p className="text-lg ">
+      <p className="sm: text-2xl md:lg:text-3xl font-semibold">Bio</p>
+      <p className="md:lg:text-lg sm:text-md">
         Hello World! I'm Johann, an aspiring software engineer studying computer science at Tufts University.
         Currently, I find enjoyment in building projects revolving around machine learning, high performance computing, and web development. 
         For those interested, here is my <a href="https://drive.google.com/file/d/1DG9fu_W27yQNaNaf86wdnfAjxULWYB0K/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="underline font-bold">resume</a>, and some <a href="#projects-section" className="underline font-bold">projects</a> I've worked on. 
       </p>
-      <p className="text-lg">Outside of school, I enjoy going to the gym, swimming, and occasionally full boxing some kids on Fortnite. I'm also trying to get into writing, which is one of the main motives behind this site. Check out some of my <a href="/blog" className="underline font-bold">blogs</a>, if you want. Hopefully they provide some nice insights to things that might interest you.</p>
+      <p className="md:lg:text-lg sm:text-md">Outside of school, I enjoy going to the gym, swimming, and occasionally full boxing some kids on Fortnite. I'm also trying to get into writing, which is one of the main motives behind this site. Check out some of my <a href="/blog" className="underline font-bold">blogs</a>, if you want. Hopefully they provide some nice insights to things that might interest you.</p>
 
-      <p className="text-3xl font-semibold">Work Experience {" "} </p>
-      <ul className="list-disc text-lg ml-[1vw] space-y-[2vh]">
+      <p className="sm: text-2xl md:lg:text-3xl font-semibold">Work Experience {" "} </p>
+      <ul className="list-disc md:lg:text-lg sm:text-md ml-[1vw] space-y-[2vh]">
         <li>
           <p>
             <a href="https://www.datadoghq.com/" target="_blank" rel="noopener noreferrer" className="underline hover:font-bold">

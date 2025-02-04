@@ -11,7 +11,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div className="container mx-auto p-4 pt-[80px]">
         <div className="flex flex-col items-center gap-5 ">
           <NameTab />
-          <main className="md:lg:w-[50vw] sm:w-full max-w-[750px]">{children}</main>
+          <main className="md:lg:w-[50vw] sm:w-[95vw] max-w-[750px]">{children}</main>
         </div>
       </div>
     </div>
