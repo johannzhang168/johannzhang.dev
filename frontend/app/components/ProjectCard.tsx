@@ -17,7 +17,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { currentUser } = useUser();
   const navigate = useNavigate();
   return (
-    <div className="rounded-lg bg-white hover:bg-gray-200 shadow-md transition flex flex-col max-w-[85%]">
+    <div className="rounded-lg bg-white hover:bg-gray-200 shadow-md transition flex flex-col max-w-full">
       <div
         className="flex flex-col cursor-pointer flex-grow"
         onClick={(e) => {
