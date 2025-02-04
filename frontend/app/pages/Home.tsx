@@ -107,7 +107,7 @@ const Home: React.FC = () => {
       <Masonry
         breakpointCols={breakpointColumns}
         className="flex gap-4"
-        columnClassName="space-y-4"
+        columnClassName="space-y-4 max-w-[95%]"
       >
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
