@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"os"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,7 +10,7 @@ import (
 	"github.com/kamva/mgm/v3"
 )
 
-var jwtSecret = []byte("secret")
+var jwtSecret = []byte(os.Getenv("JWTSECRET"))
 
 func GetCurrentUser(c *fiber.Ctx) (*models.User, error) {
 	authHeader := c.Get("Authorization")

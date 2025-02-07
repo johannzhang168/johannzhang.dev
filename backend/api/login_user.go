@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -12,7 +13,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var jwtSecret = []byte("secret")
+var jwtSecret = []byte(os.Getenv("JWTSECRET"))
 
 type LoginRequest struct {
 	Email    string `json:"email"`
