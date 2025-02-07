@@ -73,7 +73,7 @@ const NewsletterPage: React.FC = () => {
           </button>
         )}
       </div>
-      <p className="text-gray-600 text-lg">
+      <p className="text-gray-600 text-md md:lg:text-lg">
         {formatDate(newsletter.DatePublished || newsletter.created_at)}
         {isUpdated && (
           <>
