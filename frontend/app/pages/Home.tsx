@@ -43,7 +43,7 @@ const Home: React.FC = () => {
       </p>
       <p className="md:lg:text-lg sm:text-md">Outside of school, I enjoy going to the gym, swimming, and occasionally full boxing some kids on Fortnite. I'm also trying to get into writing, which is one of the main motives behind this site. Check out some of my <a href="/blog" className="underline font-bold">blogs</a>, if you want. Hopefully they provide some nice insights to things that might interest you.</p>
 
-      <p className="sm: text-2xl md:lg:text-3xl font-semibold">Work Experience {" "} </p>
+      <p className="text-2xl md:lg:text-3xl font-semibold">Work Experience {" "} </p>
       <ul className="list-disc md:lg:text-lg sm:text-md ml-[1vw] space-y-[2vh]">
         <li>
           <p>
