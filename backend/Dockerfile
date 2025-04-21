@@ -21,10 +21,6 @@ COPY --from=builder /app/main .
 
 COPY --from=builder /app/.env .
 
-COPY fullchain.pem /root/fullchain.pem
-
-COPY privkey.pem /root/privkey.pem
-
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["./main"]

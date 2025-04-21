@@ -54,8 +54,10 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3000"
+		port = "80"
 	}
+
+	api.HealthCheck(app)
 	api.CreateNewsletter(app, newsletterCollection)
 	api.UpdateNewsletter(app, newsletterCollection)
 	api.DeleteNewsLetter(app, newsletterCollection)
@@ -71,9 +73,6 @@ func main() {
 	api.UpdateProject(app, projectCollection)
 	api.DeleteProject(app, projectCollection)
 
-	certFile := os.Getenv("SSL_CERT_FILE")
-	keyFile := os.Getenv("SSL_KEY_FILE")
-
-	log.Fatal(app.ListenTLS(":"+port, certFile, keyFile))
+	log.Fatal(app.Listen(":" + port))
 
 }
